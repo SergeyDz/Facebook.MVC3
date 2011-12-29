@@ -343,3 +343,12 @@ div#title
 {
     width: 6em;
 }
+
+div.row
+{
+    display: inline-block;
+    width: 15%;
+    vertical-align:middle;
+    height:60px; 
+}
+

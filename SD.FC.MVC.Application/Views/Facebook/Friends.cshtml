@@ -1,15 +1,25 @@
 ﻿@{
     ViewBag.Title = "Friends";
+    int i = 1;
 }
 
 <h2>Friends</h2>
+<div>
 @using(Html.BeginForm("PostToWall", "Facebook"))
 {
 <input type="submit" value="Submit" />
 
 <br />
     foreach (var friend in ViewBag.Friends) {
-        <input type="checkbox" id="chkFriends" name="chkFriends" value='@friend["id"]' /> @friend["name"]
-        <br />
+       <div class="row">
+        <img src='@string.Format("https://graph.facebook.com/{0}/picture", friend["id"])' />
+        <input type="checkbox" id="chkFriends" name="chkFriends" value='@friend["id"]' /> <span>@friend["name"]</span>
+      </div>
+        if (i % 5 == 0)
+        { 
+            <br />
+        }
+        i++;
     }
 }
+</div>
