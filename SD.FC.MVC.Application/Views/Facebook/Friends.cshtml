@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Friends";
+}
+
+<h2>Friends</h2>
+@using(Html.BeginForm("PostToWall", "Facebook"))
+{
+<input type="submit" value="Submit" />
+
+<br />
+    foreach (var friend in ViewBag.Friends) {
+        <input type="checkbox" id="chkFriends" name="chkFriends" value='@friend["id"]' /> @friend["name"]
+        <br />
+    }
+}

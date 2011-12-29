@@ -1,0 +1,13 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <text>Welcome <b>@if(SD.FC.MVC.Application.Models.InMemoryUserStore.Get(User.Identity.Name) != null)
+                     {
+                         @SD.FC.MVC.Application.Models.InMemoryUserStore.Get(User.Identity.Name).Name
+                     }
+                     </b>!
+    [ @Html.ActionLink("Log Off", "LogOff", "Account") ]</text>
+}
+else
+{
+    <text>[ @Html.ActionLink("Log On", "LogOn", "Account") ]</text>
+}
