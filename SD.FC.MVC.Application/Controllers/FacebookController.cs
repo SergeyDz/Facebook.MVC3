@@ -6,6 +6,7 @@ using SD.FC.MVC.Application.Models;
 using Facebook;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Dynamic;
 
 namespace SD.FC.MVC.Application.Controllers
 {
@@ -48,7 +49,7 @@ namespace SD.FC.MVC.Application.Controllers
         [Authorize]
         public ActionResult PostToWall(FormCollection formCollection)
         {
-            List<string> results = new List<string>();
+            List<ExpandoObject> results = new List<ExpandoObject>();
             var user = InMemoryUserStore.Get(User.Identity.Name);
             var fb = new FacebookClient(user.AccessToken);
             
@@ -56,14 +57,24 @@ namespace SD.FC.MVC.Application.Controllers
             if (!string.IsNullOrEmpty(friends))
             {
 
-
                 string[] users = friends.Split(',');
                 foreach (var friend in users)
                 {
                     if (!string.IsNullOrEmpty(friend))
                     {
                         dynamic fbFriendValue = fb.Get(string.Format("{0}?fields=id,name", friend));
-                        results.Add(fbFriendValue.name);
+                        string path = string.Format(@"/{0}/feed", friend);
+                        Dictionary<string, object> parameters = new Dictionary<string,object>();
+                        parameters.Add("name", formCollection["Name"]);
+                        parameters.Add("link", formCollection["Link"]);
+                        parameters.Add("picture", formCollection["Picture"]);
+                        parameters.Add("message", formCollection["Message"]);
+                        parameters.Add("caption", formCollection["Caption"]);
+                        dynamic fbFeedValue = fb.Post(path, parameters);
+                        dynamic data = new ExpandoObject();
+                        data.FriendName = fbFriendValue.name;
+                        data.ArticleId = 1;
+                        results.Add(data);
                     }
                 }
             }

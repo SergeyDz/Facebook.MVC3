@@ -7,7 +7,19 @@
 <div>
 @using(Html.BeginForm("PostToWall", "Facebook"))
 {
+    
+<div>
+<div><label for="Name">Name </label><input type="text" name="Name" /></div>
+<div><label for="Caption">Caption</label><input type="text" name="Caption" /> </div>
+<div><label for="Message">Message</label> <textarea name="Message" rows="4"></textarea> </div>
+<div><label for="Picture">Picture URL</label><input type="text" name="Picture" /></div>
+<div><label for="Link">Link for redirect</label><input type="text" name="Link" /></div>
+
 <input type="submit" value="Submit" />
+
+</div>
+                 
+
 
 <br />
     foreach (var friend in ViewBag.Friends) {
