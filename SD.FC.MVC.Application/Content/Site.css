@@ -344,6 +344,24 @@ div#title
     width: 6em;
 }
 
+
+.fblogin
+{
+    background: url('../Content/signin_facebook.png') no-repeat 0 0;
+    height: 23px;
+    width: 150px;
+    display: block;
+    border:0;
+}
+.fblogin:hover
+{
+    background-position: 0 -24px;
+}
+.fblogin:active
+{
+    background-position: 0 -47px;
+}
+
 div.row
 {
     display: inline-block;
