@@ -7,6 +7,7 @@ using Facebook;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Dynamic;
+using System.Configuration;
 
 namespace SD.FC.MVC.Application.Controllers
 {
@@ -63,6 +64,7 @@ namespace SD.FC.MVC.Application.Controllers
                     if (!string.IsNullOrEmpty(friend))
                     {
                         dynamic fbFriendValue = fb.Get(string.Format("{0}?fields=id,name", friend));
+                        dynamic data = new ExpandoObject();
                         string path = string.Format(@"/{0}/feed", friend);
                         Dictionary<string, object> parameters = new Dictionary<string,object>();
                         parameters.Add("name", formCollection["Name"]);
@@ -70,10 +72,17 @@ namespace SD.FC.MVC.Application.Controllers
                         parameters.Add("picture", formCollection["Picture"]);
                         parameters.Add("message", formCollection["Message"]);
                         parameters.Add("caption", formCollection["Caption"]);
-                        dynamic fbFeedValue = fb.Post(path, parameters);
-                        dynamic data = new ExpandoObject();
+                        if (ConfigurationManager.AppSettings["AllowFeedPosting"] == "True")
+                        {
+                            dynamic fbFeedValue = fb.Post(path, parameters);
+                            data.FeedId = fbFeedValue.id;
+                        }
+                        else
+                        {
+                            data.FeedId = -1;
+                        }
+                       
                         data.FriendName = fbFriendValue.name;
-                        data.ArticleId = 1;
                         results.Add(data);
                     }
                 }

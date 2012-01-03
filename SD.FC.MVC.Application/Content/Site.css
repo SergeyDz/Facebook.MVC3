@@ -352,3 +352,20 @@ div.row
     height:60px; 
 }
 
+.edit-label
+{
+   
+}
+
+.edit-text
+{
+    /*position:relative;*/ 
+    /*margin-left:200px;*/
+
+       
+}
+
+.edit-text input, textarea
+{
+    width:500px;
+}
