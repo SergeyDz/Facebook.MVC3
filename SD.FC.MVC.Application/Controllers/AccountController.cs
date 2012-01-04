@@ -11,6 +11,7 @@ using SD.FC.MVC.Application.Models;
 using System.Text;
 using Facebook;
 using System.Dynamic;
+using System.Configuration;
 
 namespace SD.FC.MVC.Application.Controllers
 {
@@ -147,7 +148,8 @@ namespace SD.FC.MVC.Application.Controllers
 
         private Uri GetFacebookRedirectUri()
         {
-            return new Uri(Url.Action("FacebookCallback", "Account", null, Request.Url.Scheme));
+            //return new Uri(Url.Action("FacebookCallback", "Account", null, Request.Url.Scheme));
+            return new Uri(ConfigurationManager.AppSettings["FacebookOAuthCallbackURL"]);
         }
 
         #region Base64 Url Decoding/Encoding
