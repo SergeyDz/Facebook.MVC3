@@ -17,15 +17,15 @@
 </div>
                  
 <input type="submit" value="Submit" />
-    <input type="button" value="Check All" onclick="function() {  }" />
-    <input type="button" value="Uncheck All" onclick="function() { }" />
+    <input type="button" value="Check All" id="Friends_btnCheckAllFriends" />
+    <input type="button" value="Uncheck All" id="Friends_btnUnCheckAllFriends" />
 
 <br />
     foreach (var friend in ViewBag.Friends)
     {
        <div class="row">
         <img src='@string.Format("https://graph.facebook.com/{0}/picture", friend["id"])' />
-        <input type="checkbox" id="chkFriends" name="chkFriends" value='@friend["id"]' /> <span>@friend["name"]</span>
+        <input type="checkbox" name="chkFriends" value='@friend["id"]' /> <span>@friend["name"]</span>
       </div>
         if (i % 5 == 0)
         { 
